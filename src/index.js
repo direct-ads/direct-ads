@@ -6,9 +6,12 @@ const onboard = Onboard({
   dappId: "e1a1ff68-4c57-4d8a-a283-1ce8a9bd9fbf",
   networkId: 4,
   subscriptions: {
-    wallet: (wallet) => {
-      console.log(wallet);
+    wallet: async (wallet) => {
       const provider = new ethers.providers.Web3Provider(wallet.provider);
+      const signer = provider.getSigner();
+      const addr = await signer.getAddress();
+      let balance = await provider.getBalance(addr);
+      console.log(addr, balance);
     }
   }
 });
