@@ -1,0 +1,16 @@
+---
+contracts_folder: contracts
+dependencies:
+  - name: OpenZeppelin
+    github: OpenZeppelin/openzeppelin-contracts
+    version: 4.5.0
+solidity:
+  import_remapping:
+    - "@openzeppelin=OpenZeppelin/4.5.0"
+ethereum:
+  development:
+    default_provider: hardhat
+plugins:
+  - name: solidity
+    version: 0.1.0b5
+  - name: hardhat
