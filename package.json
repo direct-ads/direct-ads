@@ -9,6 +9,9 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.5",
+    "@openzeppelin/contracts": "^4.5.0",
+    "hardhat": "^2.8.4",
     "node-polyfill-webpack-plugin": "^1.1.4",
     "webpack": "^5.69.1",
     "webpack-cli": "^4.9.2"
