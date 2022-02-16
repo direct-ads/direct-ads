@@ -1,4 +1,8 @@
-node_modules/
+.build/
+.secret
+__pycache__/
+artifacts/
+cache/
 dist/*
 !dist/index.html
-.secret
+node_modules/
