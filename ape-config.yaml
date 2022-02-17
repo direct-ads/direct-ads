@@ -10,6 +10,11 @@ solidity:
 ethereum:
   development:
     default_provider: hardhat
+deployments:
+  ethereum:
+    goerli:
+      - contract_type: Box
+        address: 0x44B3f6d694283E3e4811E048d2f56429718b41F1
 plugins:
   - name: solidity
     version: 0.1.0b5
