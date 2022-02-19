@@ -10,6 +10,7 @@ middleman (e.g. Google AdSense).
 * The whole process is managed by a few smart contracts on the Ethereum
   blockchain.
 
+THIS IS A WORK IN PROGRESS.
 
 ## Our tech stack
 
