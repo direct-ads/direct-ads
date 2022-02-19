@@ -25,4 +25,4 @@ THIS IS A WORK IN PROGRESS.
 | polygon | EVM enabled sidechain |
 | solidity | Our contracts are written in solidity |
 | stimulus | Frontend JS framework (no react or vue here) |
-| tally wallet | Our preferred wallet |
+| tally wallet | Our dapp supports tally wallet via bnc-onboard |

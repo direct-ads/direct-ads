@@ -5,4 +5,5 @@ artifacts/
 cache/
 dist/*
 !dist/index.html
+!dist/logo.png
 node_modules/
