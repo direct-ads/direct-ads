@@ -1,9 +1,9 @@
 async function main() {
-  const Box = await ethers.getContractFactory("Box");
-  console.log("Deploying Box...");
-  const box = await Box.deploy();
-  await box.deployed();
-  console.log("Box deployed to:", box.address);
+  const DirectAds = await ethers.getContractFactory("DirectAds");
+  console.log("Deploying DirectAds...");
+  const directAds = await DirectAds.deploy();
+  await directAds.deployed();
+  console.log("DirectAds deployed to:", directAds.address);
 }
 
 main()

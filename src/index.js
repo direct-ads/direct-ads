@@ -1,30 +1,6 @@
-import { ethers } from "ethers";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Application } from "@hotwired/stimulus";
+import WalletController from "./controllers/wallet_controller";
 
-import Onboard from "bnc-onboard";
-
-const onboard = Onboard({
-  dappId: "e1a1ff68-4c57-4d8a-a283-1ce8a9bd9fbf",
-  networkId: 4,
-  subscriptions: {
-    wallet: async (wallet) => {
-      // Store the selected wallet name to be retrieved next time the app loads
-      window.localStorage.setItem("selectedWallet", wallet.name);
-      const provider = new ethers.providers.Web3Provider(wallet.provider);
-      const signer = provider.getSigner();
-      const addr = await signer.getAddress();
-      let balance = await provider.getBalance(addr);
-      console.log(addr, balance);
-    }
-  }
-});
-
-// Get the selected wallet from local storage
-const previouslySelectedWallet = window.localStorage.getItem("selectedWallet");
-if (previouslySelectedWallet === null) {
-  // Prompt user to select a wallet
-  await onboard.walletSelect();
-} else {
-  await onboard.walletSelect(previouslySelectedWallet);
-}
-// Run wallet checks to make sure that user is ready to transact
-await onboard.walletCheck();
+window.Stimulus = Application.start();
+Stimulus.register("wallet", WalletController);

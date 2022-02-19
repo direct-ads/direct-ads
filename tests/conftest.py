@@ -7,5 +7,5 @@ def owner(accounts):
 
 
 @pytest.fixture
-def box(project, owner):
-    return owner.deploy(project.Box)
+def direct_ads(project, owner):
+    return owner.deploy(project.DirectAds)
