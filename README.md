@@ -34,7 +34,8 @@ THIS IS A WORK IN PROGRESS.
 
 * Polygon
 
-  Our dapp is based on NFTs and deployed on Polygon.
+  Our dapp is based on NFTs and deployed on Polygon Testnet.
+  https://mumbai.polygonscan.com/address/0x9a3d3145Dd33eB4fF97bC5fd1E632aB3A0Cc4960
 
 * Consensys Devtools
 
