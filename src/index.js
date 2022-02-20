@@ -1,4 +1,4 @@
-import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.scss";
 import { Application } from "@hotwired/stimulus";
 import WalletController from "./controllers/wallet_controller";
 import InventoryController from "./controllers/inventory_controller";
