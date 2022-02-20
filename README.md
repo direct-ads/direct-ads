@@ -24,5 +24,27 @@ THIS IS A WORK IN PROGRESS.
 | openzepellin | Reusable solidity contracts |
 | polygon | EVM enabled sidechain |
 | solidity | Our contracts are written in solidity |
-| stimulus | Frontend JS framework (no react or vue here) |
+| stimulus | Frontend JS framework |
 | tally wallet | Our dapp supports tally wallet via bnc-onboard |
+
+
+## Development
+
+1. Install dependencies
+   ```sh
+   npm install
+   ```
+1. Start foreman. (Run `gem install foreman` to install it first.)
+   ```sh
+   foreman start
+   ```
+1. Run tests. (Run `pip install eth-ape` to install `ape`.)
+   ```sh
+   ape test
+   ```
+1. Open http://localhost:8080
+
+To deploy the contracts, execute:
+```sh
+ape run deploy --network <network>
+```
