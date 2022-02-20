@@ -10,7 +10,7 @@ middleman (e.g. Google AdSense).
 - The whole process is managed by a few smart contracts on the Ethereum
   blockchain.
 
-THIS IS A WORK IN PROGRESS.
+Demo: https://direct-ads.pages.dev/
 
 ## FAQ
 
@@ -32,27 +32,28 @@ THIS IS A WORK IN PROGRESS.
 
 ## Bounties
 
-* Polygon
+- Polygon
 
   Our dapp is based on NFTs and deployed on Polygon Testnet.
   https://mumbai.polygonscan.com/address/0x9a3d3145Dd33eB4fF97bC5fd1E632aB3A0Cc4960
 
-* Consensys Devtools
+- Consensys Devtools
 
   We've written Scribble properties for the OpenZeppelin ERC777 contract. Please
   see https://github.com/soylent/openzeppelin-contracts/commit/2490c2a336db29a0d12bd62493031139e2ce1226
 
-* Tally Wallet
+- Tally Wallet
 
   We've integrated Tally Wallet into our app using the Blocknative Onboard
   library.
-  
-  <img width="657" alt="image" src="https://user-images.githubusercontent.com/1593860/154835421-31c26b62-12cd-44f6-9b73-9077aa44e32b.png">
 
+  <img width="657" alt="image" src="https://user-images.githubusercontent.com/1593860/154835421-31c26b62-12cd-44f6-9b73-9077aa44e32b.png">
 
 * Apeworx
 
   We used Ape to build and test the smart contracts for our dapp.
+
+  [ape-config.yaml](https://github.com/direct-ads/direct-ads/blob/main/ape-config.yaml)
 
 ## Our tech stack
 
