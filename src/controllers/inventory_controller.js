@@ -30,7 +30,7 @@ export default class extends Controller {
     let tokenURI = await this.directAds.tokenURI(id);
     let inventoryResponse = await fetch(tokenURI);
     let inventory = await inventoryResponse.json();
-    inventory.id = 1; // FIXME
+    inventory.id = id;
     return inventory;
   }
 
@@ -56,6 +56,7 @@ export default class extends Controller {
     // Add a new offer form
     let response = await fetch("_new_offer.html");
     this.contentTarget.insertAdjacentHTML("beforeend", await response.text());
+    this.offerFormTarget.elements["inventoryId"].value = inventoryId;
   }
 
   renderOffers(offers) {
@@ -90,17 +91,18 @@ export default class extends Controller {
     let json = await response.json();
     let tokenURI = "https://ipfs.infura.io/ipfs/" + json["Hash"];
     // Add the new inventory
-    let tokenId = await this.directAds.addInventory(tokenURI);
-    console.log("New NFT", tokenId);
+    await this.directAds.addInventory(tokenURI);
+    console.log("Minted a new inventory NFT");
   }
 
   async addOffer() {
     let formData = new FormData(this.offerFormTarget);
     // Add the new offer
+    let inventoryId = formData.get("inventoryId");
     let url = formData.get("url");
     let bid = formData.get("bid");
     let payee = formData.get("payee");
-    let offerId = await this.directAds.addOffer(1, url, bid, payee);
-    console.log("New offer", offerId);
+    await this.directAds.addOffer(inventoryId, url, bid, payee);
+    console.log("Added a new offer for inventory", inventoryId);
   }
 }
