@@ -7,7 +7,7 @@ const privateKey = fs
   .trim();
 
 module.exports = {
-  defaultNetwork: "matic",
+  defaultNetwork: "hardhat",
   networks: {
     hardhat: {},
     matic: {
@@ -15,5 +15,5 @@ module.exports = {
       accounts: [privateKey]
     }
   },
-  solidity: "0.8.10"
+  solidity: "0.8.9"
 };
