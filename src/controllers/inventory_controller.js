@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import DirectAds from "../../artifacts/contracts/DirectAds.sol/DirectAds.json";
 
 export default class extends Controller {
-  static targets = ["content", "form"];
+  static targets = ["content", "inventoryForm", "offerForm"];
   static values = { inventoryId: String };
 
   get directAds() {
@@ -53,26 +53,33 @@ export default class extends Controller {
       "beforeend",
       this.renderOffers(await this.directAds.offers(inventoryId))
     );
+    // Add a new offer form
+    let response = await fetch("_new_offer.html");
+    this.contentTarget.insertAdjacentHTML("beforeend", await response.text());
   }
 
   renderOffers(offers) {
+    let formatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD"
+    });
     let rows = "";
     for (let offer of offers) {
-      rows += `<tr><th scope="row">${offer.id}</th><td>${
-        offer.bid
-      }</td><td><code>${offer.url}</code></td></tr>`;
+      rows += `<tr><th scope="row">${offer.id}</th><td>${formatter.format(
+        offer.bid / 100
+      )}</td><td><code>${offer.url}</code></td></tr>`;
     }
     return `<table class="table"><thead><tr><th scope="col">id</th><th scope="col">bid</th><th scope="col">url</th></tr></thead><tbody>${rows}</tbody></table>`;
   }
 
-  async add_form() {
+  async newInventory() {
     let response = await fetch("_new_inventory.html");
     this.contentTarget.innerHTML = await response.text();
   }
 
-  async add() {
+  async addInventory() {
     // Store the metadata on IPFS
-    let formData = new FormData(this.formTarget);
+    let formData = new FormData(this.inventoryFormTarget);
     let inventoryJSON = JSON.stringify(Object.fromEntries(formData));
     let file = new FormData();
     file.append("file", inventoryJSON);
@@ -81,12 +88,19 @@ export default class extends Controller {
       body: file
     });
     let json = await response.json();
-    console.log("JSON", json);
     let tokenURI = "https://ipfs.infura.io/ipfs/" + json["Hash"];
     // Add the new inventory
-    console.log("Token URI", tokenURI);
     let tokenId = await this.directAds.addInventory(tokenURI);
     console.log("New NFT", tokenId);
-    return false;
+  }
+
+  async addOffer() {
+    let formData = new FormData(this.offerFormTarget);
+    // Add the new offer
+    let url = formData.get("url");
+    let bid = formData.get("bid");
+    let payee = formData.get("payee");
+    let offerId = await this.directAds.addOffer(1, url, bid, payee);
+    console.log("New offer", offerId);
   }
 }
