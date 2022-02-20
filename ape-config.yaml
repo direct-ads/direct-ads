@@ -14,7 +14,7 @@ deployments:
   ethereum:
     goerli:
       - contract_type: DirectAds
-        address: 0x9a3d3145Dd33eB4fF97bC5fd1E632aB3A0Cc4960
+        address: 0x15B70a02D92074651d416AfecaCA70AF8a97eb25
 plugins:
   - name: solidity
     version: 0.1.0b5

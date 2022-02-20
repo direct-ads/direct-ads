@@ -4,13 +4,18 @@ async function main() {
   await directAds.deployed();
 
   // Add some test data for demo purposes
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 4; i++) {
     await directAds.addInventory(
-      "https://bafybeiffh63tssd26veaws7wxzxp2taik2hjp27ktgtz26oqxh5wuyvfse.ipfs.infura-ipfs.io"
+      "https://ipfs.infura.io/ipfs/QmcZfEzDizzLpSP2erfFXjfbgLhomWxStfjq9xtmza9cRr"
     );
-  }
-  for (let i = 0; i < 3; i++) {
-    await directAds.addOffer(1, "https://example.org/vast.xml", 500, "0x5FbDB2315678afecb367f032d93F642f64180aa3");
+    for (let j = 0; j < 2; j++) {
+      await directAds.addOffer(
+        i,
+        "https://example.org/vast.xml",
+        500,
+        "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+      );
+    }
   }
 
   console.log("DirectAds deployed to:", directAds.address);
