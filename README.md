@@ -45,6 +45,9 @@ THIS IS A WORK IN PROGRESS.
 
   We've integrated Tally Wallet into our app using the Blocknative Onboard
   library.
+  
+  <img width="657" alt="image" src="https://user-images.githubusercontent.com/1593860/154835421-31c26b62-12cd-44f6-9b73-9077aa44e32b.png">
+
 
 * Apeworx
 
