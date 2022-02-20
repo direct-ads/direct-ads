@@ -1,0 +1,60 @@
+<form class="row" data-inventory-target="form" onsubmit="return false;">
+  <div class="mb-3">
+    <label for="inventory-id" class="form-label">Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="inventory-id"
+      placeholder="Example website"
+      name="name"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="inventory-description" class="form-label">Description</label>
+    <input
+      type="text"
+      class="form-control"
+      id="inventory-description"
+      placeholder="Views per day, audience, etc"
+      name="description"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="inventory-url" class="form-label">URL</label>
+    <input
+      type="text"
+      class="form-control"
+      id="inventory-url"
+      placeholder="https://example.org/"
+      name="url"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="inventory-thumbnail" class="form-label">Thumbnail</label>
+    <input
+      type="text"
+      class="form-control"
+      id="inventory-thumbnail"
+      placeholder="https://example.org/thumbnail.png"
+      name="thumbnail"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="inventory-min-cpm" class="form-label">Min CPM (cents)</label>
+    <input
+      type="number"
+      class="form-control"
+      id="inventory-min-cpm"
+      placeholder="500"
+      name="min_cpm"
+    />
+  </div>
+  <div class="mb-3">
+    <button
+      class="btn btn-primary mb-3"
+      data-action="inventory#add"
+    >
+      submit
+    </button>
+  </div>
+</form>

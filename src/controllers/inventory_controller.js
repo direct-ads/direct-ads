@@ -3,12 +3,12 @@ import { ethers } from "ethers";
 import DirectAds from "../../artifacts/contracts/DirectAds.sol/DirectAds.json";
 
 export default class extends Controller {
-  static targets = ["content"];
+  static targets = ["content", "form"];
   static values = { inventoryId: String };
 
   get directAds() {
     return new ethers.Contract(
-      "0x998abeb3E57409262aE5b751f60747921B33613E",
+      "0x5FbDB2315678afecb367f032d93F642f64180aa3",
       DirectAds.abi,
       window.provider.getSigner()
     );
@@ -17,7 +17,7 @@ export default class extends Controller {
   async connect() {
     let totalSupply = await this.directAds.totalSupply();
 
-    for (let id = 1; id <= totalSupply; id++) {
+    for (let id = totalSupply; id >= 1; id--) {
       let inventory = await this.loadInventory(id);
       this.contentTarget.insertAdjacentHTML(
         "beforeend",
@@ -63,5 +63,30 @@ export default class extends Controller {
       }</td><td><code>${offer.url}</code></td></tr>`;
     }
     return `<table class="table"><thead><tr><th scope="col">id</th><th scope="col">bid</th><th scope="col">url</th></tr></thead><tbody>${rows}</tbody></table>`;
+  }
+
+  async add_form() {
+    let response = await fetch("_new_inventory.html");
+    this.contentTarget.innerHTML = await response.text();
+  }
+
+  async add() {
+    // Store the metadata on IPFS
+    let formData = new FormData(this.formTarget);
+    let inventoryJSON = JSON.stringify(Object.fromEntries(formData));
+    let file = new FormData();
+    file.append("file", inventoryJSON);
+    let response = await fetch("https://ipfs.infura.io:5001/api/v0/add", {
+      method: "POST",
+      body: file
+    });
+    let json = await response.json();
+    console.log("JSON", json);
+    let tokenURI = "https://ipfs.infura.io/ipfs/" + json["Hash"];
+    // Add the new inventory
+    console.log("Token URI", tokenURI);
+    let tokenId = await this.directAds.addInventory(tokenURI);
+    console.log("New NFT", tokenId);
+    return false;
   }
 }
