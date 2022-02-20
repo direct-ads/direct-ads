@@ -30,21 +30,28 @@ THIS IS A WORK IN PROGRESS.
 
 ## Development
 
+1. Install foreman
+   ```sh
+   gem install foreman
+   ```
+1. Install apeworx
+   ```sh
+   pip install eth-ape
+   ```
 1. Install dependencies
    ```sh
    npm install
    ```
-1. Start foreman. (Run `gem install foreman` to install it first.)
+1. Start foreman
    ```sh
    foreman start
    ```
-1. Run tests. (Run `pip install eth-ape` to install `ape`.)
+1. Run tests
    ```sh
    ape test
    ```
+1. Deploy the contracts
+   ```sh
+   ape run deploy --network hardhat
+   ```
 1. Open http://localhost:8080
-
-To deploy the contracts, execute:
-```sh
-ape run deploy --network <network>
-```
