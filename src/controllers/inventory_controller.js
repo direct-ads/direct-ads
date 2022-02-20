@@ -8,7 +8,7 @@ export default class extends Controller {
 
   get directAds() {
     return new ethers.Contract(
-      "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "0x9a3d3145Dd33eB4fF97bC5fd1E632aB3A0Cc4960",
       DirectAds.abi,
       window.provider.getSigner()
     );

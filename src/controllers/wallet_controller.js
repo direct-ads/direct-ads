@@ -8,7 +8,7 @@ export default class extends Controller {
   async connect() {
     const onboard = Onboard({
       dappId: "e1a1ff68-4c57-4d8a-a283-1ce8a9bd9fbf",
-      networkId: 31337, // 4,
+      networkId: 80001, // 31337
       subscriptions: {
         wallet: async (wallet) => {
           // Store the selected wallet name to be retrieved next time the app loads
