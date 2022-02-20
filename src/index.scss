@@ -1,7 +1,14 @@
 @import "bootstrap";
 
 h2,
-h3,
-.lead {
+h3 {
   margin-top: 3rem;
+}
+
+.logo,
+.lead {
+  margin-top: 2rem;
+}
+.logo {
+  height: 35pt;
 }

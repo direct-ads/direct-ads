@@ -15,7 +15,7 @@ export default class extends Controller {
           window.localStorage.setItem("selectedWallet", wallet.name);
           window.provider = new ethers.providers.Web3Provider(wallet.provider);
 
-          this.statusTarget.innerHTML = `Connected to ${wallet.name}`;
+          console.log("Connected to", wallet.name);
 
           let response = await fetch("_inventory.html");
           this.contentTarget.innerHTML = await response.text();
@@ -24,7 +24,9 @@ export default class extends Controller {
     });
 
     // Get the selected wallet from local storage
-    const previouslySelectedWallet = window.localStorage.getItem("selectedWallet");
+    const previouslySelectedWallet = window.localStorage.getItem(
+      "selectedWallet"
+    );
     if (previouslySelectedWallet === null) {
       // Prompt user to select a wallet
       await onboard.walletSelect();
