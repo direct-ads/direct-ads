@@ -9,6 +9,8 @@ middleman (e.g. Google AdSense).
 - Publishers accept offers, display ads, and get paid directly by advertisers.
 - The whole process is managed by a few smart contracts on the Ethereum
   blockchain.
+  
+Video: https://bafybeih77xeg26nowf7isstinyo3qrjvxvifelsn24gxpdxkf4isl5f324.ipfs.infura-ipfs.io
 
 Demo: https://direct-ads.pages.dev/
 
