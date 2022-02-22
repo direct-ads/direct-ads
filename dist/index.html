@@ -10,19 +10,192 @@
       <div class="row">
         <div class="col-3"></div>
         <div class="col-6">
-          <div data-controller="wallet content-loader">
-            <p class="text-end" data-wallet-target="status"></p>
-            <div class="text-center">
-              <a href="./"><img src="logo.png" class="logo" alt="logo"/></a>
-              <p class="lead">
-                NFT-based advertising solution that allows publishers and
-                advertisers transact directly.
-              </p>
+          <div class="text-center">
+            <a href="./"><img src="logo.png" class="logo" alt="logo"/></a>
+            <p class="lead">
+              NFT-based advertising solution that allows publishers and
+              advertisers transact directly.
+            </p>
+          </div>
+          <div data-controller="inventory">
+            <template data-inventory-target="template">
+              <div
+                class="row"
+                data-controller="offers"
+                data-offers-inventory-id-value="missing"
+                data-offers-loaded="0"
+              >
+                <template data-offers-target="template">
+                  <tr>
+                    <th scope="row">id</th>
+                    <td>bid</td>
+                    <td><code>url</code></td>
+                  </tr>
+                </template>
+                <div class="col-3">
+                  <img src="thumbnail" class="img-thumbnail" />
+                </div>
+                <div class="col-6" data-controller="toggler">
+                  <a
+                    href="#"
+                    data-action="offers#index toggler#toggle"
+                    class="h6"
+                    >name</a
+                  >
+                  <p>description</p>
+                  <div class="d-none" data-toggler-target="target">
+                    <div data-controller="toggler">
+                      <button
+                        type="button"
+                        class="btn btn-success btn-sm float-end"
+                        data-action="toggler#toggle"
+                      >
+                        New offer
+                      </button>
+                      <h3>Offers</h3>
+                      <form
+                        class="row d-none"
+                        data-action="offers#create"
+                        data-offers-target="form"
+                        data-toggler-target="target"
+                      >
+                        <div class="mb-3">
+                          <label for="offer-url" class="form-label"
+                            >Ad server URL (e.g. VAST)</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="offer-url"
+                            placeholder="https://example.org/vast.xml"
+                            name="url"
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="offer-bid" class="form-label"
+                            >CPM Bid (cents)</label
+                          >
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="offer-bid"
+                            placeholder="600"
+                            name="bid"
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <label for="offer-payee" class="form-label"
+                            >Payee Address</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="offer-payee"
+                            placeholder="0x5FbDB2315678afecb367f032d93F642f64180aa3"
+                            name="payee"
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <button
+                            type="submit"
+                            class="btn btn-primary btn-sm mb-3"
+                          >
+                            Submit
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">id</th>
+                          <th scope="col">bid</th>
+                          <th scope="col">url</th>
+                        </tr>
+                      </thead>
+                      <tbody data-offers-target="table"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </template>
+            <div data-controller="toggler">
+              <button
+                type="button"
+                class="btn btn-success btn-sm float-end"
+                data-action="toggler#toggle"
+              >
+                New inventory
+              </button>
+              <h2>Inventory</h2>
+              <form
+                class="row d-none"
+                data-action="inventory#create"
+                data-toggler-target="target"
+              >
+                <div class="mb-3">
+                  <label for="inventory-name" class="form-label">Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inventory-name"
+                    placeholder="Example website"
+                    name="name"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="inventory-description" class="form-label"
+                    >Description</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inventory-description"
+                    placeholder="Views per day, audience, etc"
+                    name="description"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="inventory-url" class="form-label">URL</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inventory-url"
+                    placeholder="https://example.org/"
+                    name="url"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="inventory-thumbnail" class="form-label"
+                    >Thumbnail</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inventory-thumbnail"
+                    placeholder="https://example.org/thumbnail.png"
+                    name="thumbnail"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="inventory-min-cpm" class="form-label"
+                    >Min CPM (cents)</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="inventory-min-cpm"
+                    placeholder="500"
+                    name="min_cpm"
+                  />
+                </div>
+                <div class="mb-3">
+                  <button type="submit" class="btn btn-primary btn-sm mb-3">
+                    Submit
+                  </button>
+                </div>
+              </form>
             </div>
-            <div
-              data-wallet-target="content"
-              data-content-loader-target="content"
-            ></div>
           </div>
         </div>
       </div>

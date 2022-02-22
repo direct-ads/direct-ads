@@ -4,7 +4,7 @@ async function main() {
   await directAds.deployed();
 
   // Add some test data for demo purposes
-  for (let i = 0; i < 4; i++) {
+  for (let i = 1; i < 5; i++) {
     await directAds.addInventory(
       "https://ipfs.infura.io/ipfs/QmcZfEzDizzLpSP2erfFXjfbgLhomWxStfjq9xtmza9cRr"
     );
