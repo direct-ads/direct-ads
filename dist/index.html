@@ -20,7 +20,7 @@
           <div data-controller="inventory">
             <template data-inventory-target="template">
               <div
-                class="row"
+                class="card"
                 data-controller="offers"
                 data-offers-inventory-id-value="missing"
                 data-offers-loaded="0"
@@ -32,79 +32,17 @@
                     <td><code>url</code></td>
                   </tr>
                 </template>
-                <div class="col-3">
-                  <img src="thumbnail" class="img-thumbnail" />
-                </div>
-                <div class="col-6" data-controller="toggler">
+                <img src="#" class="card-img-top" />
+                <div class="card-body" data-controller="toggler">
                   <a
                     href="#"
                     data-action="offers#index toggler#toggle"
-                    class="h6"
+                    class="h5 card-title"
                     >name</a
                   >
-                  <p>description</p>
+                  <p class="card-text">description</p>
                   <div class="d-none" data-toggler-target="target">
-                    <div data-controller="toggler">
-                      <button
-                        type="button"
-                        class="btn btn-success btn-sm float-end"
-                        data-action="toggler#toggle"
-                      >
-                        New offer
-                      </button>
-                      <h3>Offers</h3>
-                      <form
-                        class="row d-none"
-                        data-action="offers#create"
-                        data-offers-target="form"
-                        data-toggler-target="target"
-                      >
-                        <div class="mb-3">
-                          <label for="offer-url" class="form-label"
-                            >Ad server URL (e.g. VAST)</label
-                          >
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="offer-url"
-                            placeholder="https://example.org/vast.xml"
-                            name="url"
-                          />
-                        </div>
-                        <div class="mb-3">
-                          <label for="offer-bid" class="form-label"
-                            >CPM Bid (cents)</label
-                          >
-                          <input
-                            type="number"
-                            class="form-control"
-                            id="offer-bid"
-                            placeholder="600"
-                            name="bid"
-                          />
-                        </div>
-                        <div class="mb-3">
-                          <label for="offer-payee" class="form-label"
-                            >Payee Address</label
-                          >
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="offer-payee"
-                            placeholder="0x5FbDB2315678afecb367f032d93F642f64180aa3"
-                            name="payee"
-                          />
-                        </div>
-                        <div class="mb-3">
-                          <button
-                            type="submit"
-                            class="btn btn-primary btn-sm mb-3"
-                          >
-                            Submit
-                          </button>
-                        </div>
-                      </form>
-                    </div>
+                    <h3>Offers</h3>
                     <table class="table">
                       <thead>
                         <tr>
@@ -113,8 +51,61 @@
                           <th scope="col">url</th>
                         </tr>
                       </thead>
-                      <tbody data-offers-target="table"></tbody>
+                      <tbody data-offers-target="table">
+                        <tr>
+                          <td colspan="3">There are no offers yet.</td>
+                        </tr>
+                      </tbody>
                     </table>
+                    <form
+                      class="row"
+                      data-action="offers#create"
+                      data-offers-target="form"
+                    >
+                      <h4>New Offer</h4>
+                      <div class="mb-3">
+                        <label for="offer-url" class="form-label"
+                          >VAST URL</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="offer-url"
+                          placeholder="https://example.org/vast.xml"
+                          name="url"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="offer-bid" class="form-label">CPM</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="offer-bid"
+                          placeholder="600"
+                          name="bid"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="offer-payee" class="form-label"
+                          >Payee Address</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="offer-payee"
+                          placeholder="0x5FbDB2315678afecb367f032d93F642f64180aa3"
+                          name="payee"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <button
+                          type="submit"
+                          class="btn btn-primary btn-sm mb-3"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
