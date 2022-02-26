@@ -17,12 +17,11 @@ export default class extends Controller {
   }
 
   async index(event) {
-    if (this.loadedValue) {
-      while (this.tableTarget.firstChild) {
-        this.tableTarget.firstChild.remove();
-      }
-      this.loadedValue = false;
-    } else {
+    while (this.tableTarget.firstChild) {
+      this.tableTarget.firstChild.remove();
+    }
+
+    if (!this.loadedValue) {
       for (let offer of await this.#directAds.offers(this.inventoryIdValue)) {
         const tpl = this.templateTarget.content.cloneNode(true);
         tpl.querySelector("th").textContent = offer.id;
@@ -32,8 +31,9 @@ export default class extends Controller {
         tpl.querySelectorAll("td")[1].textContent = offer.url;
         this.tableTarget.appendChild(tpl);
       }
-      this.loadedValue = true;
     }
+
+    this.loadedValue = !this.loadedValue;
   }
 
   async create(event) {
