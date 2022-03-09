@@ -9,11 +9,11 @@ export default class extends Controller {
   #formatter;
 
   async initialize() {
+    this.#directAds = await directAds();
     this.#formatter = new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "USD"
+      currency: "USD",
     });
-    this.#directAds = await directAds();
   }
 
   async index(event) {

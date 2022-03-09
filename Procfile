@@ -1,3 +1,2 @@
-webpack: npx webpack --config webpack.config.js --mode development --watch
+web: npx webpack serve --mode=development
 node: npx hardhat node
-web: ruby -run -ehttpd

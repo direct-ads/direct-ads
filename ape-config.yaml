@@ -1,11 +1,16 @@
 ---
 contracts_folder: contracts
 dependencies:
+  - name: chainlink
+    local: contracts/chainlink/contracts/src/v0.8
+    contracts_folder: "/"
+    version: 1.1.1
   - name: OpenZeppelin
     github: OpenZeppelin/openzeppelin-contracts
     version: 4.5.0
 solidity:
   import_remapping:
+    - "@chainlink=chainlink/1.1.1"
     - "@openzeppelin=OpenZeppelin/4.5.0"
 ethereum:
   development:
@@ -17,5 +22,4 @@ deployments:
         address: 0x15B70a02D92074651d416AfecaCA70AF8a97eb25
 plugins:
   - name: solidity
-    version: 0.1.0b5
   - name: hardhat

@@ -86,9 +86,9 @@ Demo: https://direct-ads.pages.dev/
    ```sh
    npm install
    ```
-1. Start foreman
+1. Start webpack dev server and hardhat node
    ```sh
-   foreman start
+   npm start
    ```
 1. Run tests
    ```sh
