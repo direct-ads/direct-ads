@@ -10,13 +10,16 @@ contract DirectAds is ERC721URIStorage, ChainlinkClient {
     using Counters for Counters.Counter;
     using Chainlink for Chainlink.Request;
 
+    enum DomainStatus { Unverified, Pending, Verified }
+    mapping(string => DomainStatus) private _domains;
+    mapping(bytes32 => string) private _verificationRequests;
+
     Counters.Counter private _tokenIds;
     Counters.Counter private _offerIds;
 
     address private _oracle;
     bytes32 private _jobId;
     uint256 private _fee;
-    bool private _rd;
 
     struct Offer {
         uint256 id;
@@ -68,24 +71,42 @@ contract DirectAds is ERC721URIStorage, ChainlinkClient {
         return _offers[inventoryId];
     }
 
-    function requestVolumeData() public returns (bytes32 requestId) {
+    function startDomainVerification(string memory domain) public returns (bytes32 requestId) {
+        require(_domains[domain] != DomainStatus.Pending, "Verification is already in progress");
+
+        _domains[domain] = DomainStatus.Pending;
         Chainlink.Request memory request = buildChainlinkRequest(
             _jobId,
             address(this),
-            this.fulfill.selector
+            this.finishDomainVerification.selector
         );
         request.add(
             "get",
-            "https://dns.google/resolve?name=example.com&type=txt"
+            string(abi.encodePacked("https://dns.google/resolve?type=txt&name=", domain))
         );
         request.add("path", "RD");
-        return sendChainlinkRequestTo(_oracle, request, _fee);
+        requestId = sendChainlinkRequestTo(_oracle, request, _fee);
+        _verificationRequests[requestId] = domain;
+        return requestId;
     }
 
-    function fulfill(bytes32 requestId_, bool rd_)
+    function finishDomainVerification(bytes32 requestId_, bool success)
         public
         recordChainlinkFulfillment(requestId_)
     {
-        _rd = rd_;
+        string memory domain = _verificationRequests[requestId_];
+        require(_domains[domain] == DomainStatus.Pending, "Failed");
+
+        if (success) {
+            _domains[domain] = DomainStatus.Verified;
+        } else {
+            delete _domains[domain];
+        }
+
+        delete _verificationRequests[requestId_];
+    }
+
+    function domainStatus(string memory domain) public view returns (DomainStatus) {
+        return _domains[domain];
     }
 }
