@@ -20,9 +20,9 @@
           <div data-controller="inventory">
             <template data-inventory-target="template">
               <div
-                class="card"
+                class="card mb-3"
                 data-controller="offers"
-                data-offers-inventory-id-value="missing"
+                data-offers-inventory-id-value="changeme"
                 data-offers-loaded="0"
               >
                 <template data-offers-target="template">
@@ -33,15 +33,19 @@
                   </tr>
                 </template>
                 <img src="#" class="card-img-top" />
-                <div class="card-body" data-controller="toggler">
-                  <a
-                    href="#"
-                    data-action="offers#index toggler#toggle"
-                    class="h5 card-title"
-                    >name</a
-                  >
-                  <p class="card-text">description</p>
-                  <div class="d-none" data-toggler-target="target">
+                <div class="card-body">
+                  <div>
+                    <a
+                      href="#changeme"
+                      data-bs-toggle="collapse"
+                      data-action="offers#index"
+                      class="h5 card-title"
+                      role="button"
+                      >name</a
+                    >
+                    <p class="card-text">changeme</p>
+                  </div>
+                  <div class="collapse">
                     <h3>Offers</h3>
                     <table class="table">
                       <thead>
@@ -110,19 +114,20 @@
                 </div>
               </div>
             </template>
-            <div data-controller="toggler">
+            <div>
               <button
                 type="button"
                 class="btn btn-success btn-sm float-end"
-                data-action="toggler#toggle"
+                data-bs-toggle="collapse"
+                data-bs-target="#inventory-form"
               >
                 New inventory
               </button>
               <h2>Inventory</h2>
               <form
-                class="row d-none"
+                class="collapse row"
+                id="inventory-form"
                 data-action="inventory#create"
-                data-toggler-target="target"
               >
                 <div class="mb-3">
                   <label for="inventory-name" class="form-label">Name</label>

@@ -25,10 +25,16 @@ export default class extends Controller {
 
   #appendInventory(inventory) {
     const tpl = this.templateTarget.content.cloneNode(true);
-    tpl.querySelector("a").textContent = inventory.name;
+    const link = tpl.querySelector("a");
+    const collapseId = `inventory-${inventory.id}`;
+    link.textContent = inventory.name;
+    link.href = "#" + collapseId;
+    tpl.querySelector("[class=collapse]").id = collapseId;
     tpl.querySelector("p").textContent = inventory.description;
     tpl.querySelector("img").src = inventory.thumbnail;
-    tpl.querySelector("[data-controller=offers]").setAttribute("data-offers-inventory-id-value", inventory.id);
+    tpl
+      .querySelector("[data-controller=offers]")
+      .setAttribute("data-offers-inventory-id-value", inventory.id);
     this.element.appendChild(tpl);
   }
 
@@ -47,7 +53,8 @@ export default class extends Controller {
     let file = new FormData();
     file.append("file", json);
     let response = await fetch("https://ipfs.infura.io:5001/api/v0/add", {
-      method: "POST", body: file
+      method: "POST",
+      body: file,
     });
     let responseJSON = await response.json();
     return "https://ipfs.infura.io/ipfs/" + responseJSON["Hash"];
