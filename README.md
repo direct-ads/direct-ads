@@ -34,6 +34,13 @@ Demo: https://direct-ads.pages.dev/
 
 ## Bounties
 
+- Chainlink
+
+  Our dapp uses Chainlink to verify domain name ownership. An owner needs to
+  add a TXT verification record, which the contract checks using Chainlink Any
+  API. The relevant lines are highlighted here:
+  https://github.com/direct-ads/direct-ads/blob/main/contracts/DirectAds.sol#L74-L111
+
 - Polygon
 
   Our dapp is based on NFTs and deployed on Polygon Testnet.
@@ -44,18 +51,18 @@ Demo: https://direct-ads.pages.dev/
   We've written Scribble properties for the OpenZeppelin ERC777 contract. Please
   see https://github.com/soylent/openzeppelin-contracts/commit/2490c2a336db29a0d12bd62493031139e2ce1226
 
+* Apeworx
+
+  We used Ape to build and test the smart contracts for our dapp.
+
+  [ape-config.yaml](https://github.com/direct-ads/direct-ads/blob/main/ape-config.yaml)
+
 - Tally Wallet
 
   We've integrated Tally Wallet into our app using the Blocknative Onboard
   library.
 
   <img width="657" alt="image" src="https://user-images.githubusercontent.com/1593860/154835421-31c26b62-12cd-44f6-9b73-9077aa44e32b.png">
-
-* Apeworx
-
-  We used Ape to build and test the smart contracts for our dapp.
-
-  [ape-config.yaml](https://github.com/direct-ads/direct-ads/blob/main/ape-config.yaml)
 
 ## Our tech stack
 
@@ -64,6 +71,7 @@ Demo: https://direct-ads.pages.dev/
 | apeworx      | Contract development framework                       |
 | bnc-onboard  | Wallet selection                                     |
 | bootstrap 5  | CSS framework                                        |
+| chainlink    | Domain name ownership verification
 | ethers.js    | Library for interacting with the Ethereum Blockchain |
 | maticvigil   | API gateway for the matic network                    |
 | openzepellin | Reusable solidity contracts                          |
