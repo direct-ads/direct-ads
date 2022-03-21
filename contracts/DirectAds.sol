@@ -10,9 +10,14 @@ contract DirectAds is ERC721URIStorage, ChainlinkClient {
     using Counters for Counters.Counter;
     using Chainlink for Chainlink.Request;
 
-    enum DomainStatus { Unverified, Pending, Verified }
-    mapping(string => DomainStatus) private _domains;
-    mapping(bytes32 => string) private _verificationRequests;
+    enum DomainStatus {
+        Unverified,
+        Pending,
+        Verified
+    }
+    mapping(string => DomainStatus) private _domainStatus;
+    mapping(bytes32 => string) private _domainRequest;
+    mapping(string => string) private _domainTokenURI;
 
     Counters.Counter private _tokenIds;
     Counters.Counter private _offerIds;
@@ -36,23 +41,10 @@ contract DirectAds is ERC721URIStorage, ChainlinkClient {
     event DomainVerificationResult(string indexed domain, bool result);
 
     constructor() ERC721("DirectAds", "DA") {
-        // setPublicChainlinkToken();
         setChainlinkToken(0x326C977E6efc84E512bB9C30f76E30c160eD06FB);
         _oracle = 0xc8D925525CA8759812d0c299B90247917d4d4b7C;
         _jobId = "99b1b806a8f84b14a254230ccf094747";
         _fee = 0.01 * 10**18;
-    }
-
-    function addInventory(string memory tokenURI) public returns (uint256) {
-        _tokenIds.increment();
-
-        uint256 id = _tokenIds.current();
-        _mint(msg.sender, id);
-        _setTokenURI(id, tokenURI);
-
-        emit NewInventory(id);
-
-        return id;
     }
 
     function totalSupply() public view returns (uint256) {
@@ -70,7 +62,7 @@ contract DirectAds is ERC721URIStorage, ChainlinkClient {
         uint256 id = _offerIds.current();
         _offers[inventoryId].push(Offer(id, url, bid, payee));
 
-        uint256 offerIndex = _offers[inventoryId].length-1;
+        uint256 offerIndex = _offers[inventoryId].length - 1;
         emit NewOffer(inventoryId, offerIndex);
 
         return id;
@@ -80,14 +72,26 @@ contract DirectAds is ERC721URIStorage, ChainlinkClient {
         return _offers[inventoryId];
     }
 
-    function offer(uint256 inventoryId, uint256 offerIndex) public view returns (Offer memory) {
+    function offer(uint256 inventoryId, uint256 offerIndex)
+        public
+        view
+        returns (Offer memory)
+    {
         return _offers[inventoryId][offerIndex];
     }
 
-    function startDomainVerification(string memory domain) public returns (bytes32 requestId) {
-        require(_domains[domain] != DomainStatus.Pending, "Verification is already in progress");
+    function startDomainVerification(
+        string memory domain,
+        string memory tokenURI
+    ) public returns (bytes32 requestId) {
+        require(
+            _domainStatus[domain] != DomainStatus.Pending,
+            "Verification is already in progress"
+        );
 
-        _domains[domain] = DomainStatus.Pending;
+        _domainStatus[domain] = DomainStatus.Pending;
+        _domainTokenURI[domain] = tokenURI;
+
         Chainlink.Request memory request = buildChainlinkRequest(
             _jobId,
             address(this),
@@ -99,29 +103,47 @@ contract DirectAds is ERC721URIStorage, ChainlinkClient {
         );
         request.add("path", "RD");
         requestId = sendChainlinkRequestTo(_oracle, request, _fee);
-        _verificationRequests[requestId] = domain;
+        _domainRequest[requestId] = domain;
         return requestId;
     }
 
-    function finishDomainVerification(bytes32 requestId_, bool success)
+    function finishDomainVerification(bytes32 requestId, bool success)
         public
-        recordChainlinkFulfillment(requestId_)
+        recordChainlinkFulfillment(requestId)
     {
-        string memory domain = _verificationRequests[requestId_];
-        require(_domains[domain] == DomainStatus.Pending, "Failed");
+        string memory domain = _domainRequest[requestId];
+        require(_domainStatus[domain] == DomainStatus.Pending, "Failed");
 
         if (success) {
-            _domains[domain] = DomainStatus.Verified;
+            _domainStatus[domain] = DomainStatus.Verified;
+            _addInventory(_domainTokenURI[domain]);
         } else {
-            delete _domains[domain];
+            delete _domainStatus[domain];
         }
 
-        delete _verificationRequests[requestId_];
+        delete _domainTokenURI[domain];
+        delete _domainRequest[requestId];
 
         emit DomainVerificationResult(domain, success);
     }
 
-    function domainStatus(string memory domain) public view returns (DomainStatus) {
-        return _domains[domain];
+    function _addInventory(string memory tokenURI) public returns (uint256) {
+        _tokenIds.increment();
+
+        uint256 id = _tokenIds.current();
+        _mint(msg.sender, id);
+        _setTokenURI(id, tokenURI);
+
+        emit NewInventory(id);
+
+        return id;
+    }
+
+    function domainStatus(string memory domain)
+        public
+        view
+        returns (DomainStatus)
+    {
+        return _domainStatus[domain];
     }
 }

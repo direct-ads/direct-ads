@@ -53,10 +53,11 @@ export default class extends Controller {
   async create(event) {
     event.preventDefault();
 
-    let formData = new FormData(this.formTarget);
-    let inventoryJSON = JSON.stringify(Object.fromEntries(formData));
-    let tokenURI = this.#storeJSON(inventoryJSON);
-    await this.#directAds.addInventory(tokenURI);
+    const formData = new FormData(this.formTarget);
+    const inventoryJSON = JSON.stringify(Object.fromEntries(formData));
+    const tokenURI = this.#storeJSON(inventoryJSON);
+    const url = new URL(this.formTarget["url"].value);
+    await this.#directAds.startDomainVerification(url.host, tokenURI);
 
     console.log("Minted a new inventory NFT");
   }
