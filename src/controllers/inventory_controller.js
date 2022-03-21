@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 import directAds from "../direct_ads";
 
 export default class extends Controller {
-  static targets = ["template"];
+  static targets = ["template", "form"];
 
   #directAds;
 
@@ -41,7 +41,7 @@ export default class extends Controller {
   async create(event) {
     event.preventDefault();
 
-    let formData = new FormData(this.inventoryFormTarget);
+    let formData = new FormData(this.formTarget);
     let inventoryJSON = JSON.stringify(Object.fromEntries(formData));
     let tokenURI = this.#storeJSON(inventoryJSON);
     await this.#directAds.addInventory(tokenURI);
