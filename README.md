@@ -10,7 +10,7 @@ middleman (e.g. Google AdSense).
 - The whole process is managed by a few smart contracts on the Ethereum
   blockchain.
 
-Video: https://bafybeih77xeg26nowf7isstinyo3qrjvxvifelsn24gxpdxkf4isl5f324.ipfs.infura-ipfs.io
+Video: https://ipfs.infura.io/ipfs/QmfHQiYUMmXSevfJYgkcD4riGPZQKyrWdftEt1aSNRxZNa
 
 Demo: https://direct-ads.pages.dev/
 
@@ -39,12 +39,14 @@ Demo: https://direct-ads.pages.dev/
   Our dapp uses Chainlink to verify domain name ownership. An owner needs to
   add a TXT verification record, which the contract checks using Chainlink Any
   API. The relevant lines are highlighted here:
-  https://github.com/direct-ads/direct-ads/blob/main/contracts/DirectAds.sol#L74-L111
+  https://github.com/direct-ads/direct-ads/blob/main/contracts/DirectAds.sol#L83-L128
+
+  <img width="800" alt="image" src="https://ipfs.infura.io/ipfs/QmepWa2VAHRtxAxWWXnPqLBXjYTovV9N7FRgKzWoM2751H">
 
 - Polygon
 
   Our dapp is based on NFTs and deployed on Polygon Testnet.
-  https://mumbai.polygonscan.com/address/0x9a3d3145Dd33eB4fF97bC5fd1E632aB3A0Cc4960
+  https://mumbai.polygonscan.com/address/0x8e89837992D8a8bfBB2545059A64Eb557951c657
 
 - Consensys Devtools
 
@@ -55,14 +57,14 @@ Demo: https://direct-ads.pages.dev/
 
   We used Ape to build and test the smart contracts for our dapp.
 
-  [ape-config.yaml](https://github.com/direct-ads/direct-ads/blob/main/ape-config.yaml)
+  https://github.com/direct-ads/direct-ads/blob/main/ape-config.yaml
 
 - Tally Wallet
 
   We've integrated Tally Wallet into our app using the Blocknative Onboard
   library.
 
-  <img width="657" alt="image" src="https://user-images.githubusercontent.com/1593860/154835421-31c26b62-12cd-44f6-9b73-9077aa44e32b.png">
+  <img width="600" alt="image" src="https://ipfs.infura.io/ipfs/QmYfsQ6aEdYrWw1bVkPzZB5ocK22kaz4K3ovjcefacx5ri">
 
 ## Our tech stack
 
