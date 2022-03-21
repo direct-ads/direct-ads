@@ -1,17 +1,24 @@
+import { ethers } from "ethers";
 import { Controller } from "@hotwired/stimulus";
 import directAds from "../direct_ads";
 
 export default class extends Controller {
-  static targets = ["template", "form"];
+  static targets = ["form", "list", "template"];
 
   #directAds;
 
   async connect() {
     this.#directAds = await directAds();
+    this.#directAds.on("NewInventory", async (id, event) => {
+      id = ethers.BigNumber.from(id).toNumber();
+      const inventoryNode = this.#buildInventoryNode(await this.#loadInventory(id));
+      this.listTarget.prepend(inventoryNode);
+    });
     let totalSupply = await this.#directAds.totalSupply();
 
     for (let id = totalSupply; id >= 1; id--) {
-      this.#appendInventory(await this.#loadInventory(id));
+      const inventoryNode = this.#buildInventoryNode(await this.#loadInventory(id));
+      this.listTarget.append(inventoryNode);
     }
   }
 
@@ -23,19 +30,19 @@ export default class extends Controller {
     return inventory;
   }
 
-  #appendInventory(inventory) {
-    const tpl = this.templateTarget.content.cloneNode(true);
-    const link = tpl.querySelector("a");
+  #buildInventoryNode(inventory) {
+    const node = this.templateTarget.content.cloneNode(true);
+    const link = node.querySelector("a");
     const collapseId = `inventory-${inventory.id}`;
     link.textContent = inventory.name;
     link.href = "#" + collapseId;
-    tpl.querySelector("[class=collapse]").id = collapseId;
-    tpl.querySelector("p").textContent = inventory.description;
-    tpl.querySelector("img").src = inventory.thumbnail;
-    tpl
+    node.querySelector("[class=collapse]").id = collapseId;
+    node.querySelector("p").textContent = inventory.description;
+    node.querySelector("img").src = inventory.thumbnail;
+    node
       .querySelector("[data-controller=offers]")
       .setAttribute("data-offers-inventory-id-value", inventory.id);
-    this.element.appendChild(tpl);
+    return node;
   }
 
   async create(event) {

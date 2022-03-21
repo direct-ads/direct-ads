@@ -12,3 +12,17 @@ h3 {
 .logo {
   height: 35pt;
 }
+
+@keyframes highlight {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: initial;
+  }
+}
+
+.fade-in {
+  animation-duration: 1s;
+  animation-name: highlight;
+}

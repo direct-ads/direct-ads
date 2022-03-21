@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import Onboard from "bnc-onboard";
 
-export default async function() {
+export default async function () {
   const onboard = Onboard({
     dappId: "e1a1ff68-4c57-4d8a-a283-1ce8a9bd9fbf",
     networkId: 31337,
@@ -9,8 +9,8 @@ export default async function() {
       wallet: (wallet) => {
         window.localStorage.setItem("wallet", wallet.name);
         window.provider = new ethers.providers.Web3Provider(wallet.provider);
-      }
-    }
+      },
+    },
   });
 
   const walletName = window.localStorage.getItem("wallet");

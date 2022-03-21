@@ -19,8 +19,8 @@ async function main() {
       );
     }
   }
-    await transferLinkTokens("0.05", directAds.address);
   try {
+    await transferLinkTokens("0.05", directAds.address);
     await directAds.startDomainVerification("example.com");
   } catch(e) {
     console.error(e);
