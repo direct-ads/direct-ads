@@ -32,7 +32,7 @@ contract DirectAds is ERC721URIStorage, ChainlinkClient {
     mapping(uint256 => Offer[]) private _offers;
 
     event NewInventory(uint256 indexed id);
-    event NewOffer(uint256 indexed id);
+    event NewOffer(uint256 indexed inventoryId, uint256 offerIndex);
     event DomainVerificationResult(string indexed domain, bool result);
 
     constructor() ERC721("DirectAds", "DA") {
@@ -70,13 +70,18 @@ contract DirectAds is ERC721URIStorage, ChainlinkClient {
         uint256 id = _offerIds.current();
         _offers[inventoryId].push(Offer(id, url, bid, payee));
 
-        emit NewOffer(id);
+        uint256 offerIndex = _offers[inventoryId].length-1;
+        emit NewOffer(inventoryId, offerIndex);
 
         return id;
     }
 
     function offers(uint256 inventoryId) public view returns (Offer[] memory) {
         return _offers[inventoryId];
+    }
+
+    function offer(uint256 inventoryId, uint256 offerIndex) public view returns (Offer memory) {
+        return _offers[inventoryId][offerIndex];
     }
 
     function startDomainVerification(string memory domain) public returns (bytes32 requestId) {

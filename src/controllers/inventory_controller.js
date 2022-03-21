@@ -11,13 +11,18 @@ export default class extends Controller {
     this.#directAds = await directAds();
     this.#directAds.on("NewInventory", async (id, event) => {
       id = ethers.BigNumber.from(id).toNumber();
-      const inventoryNode = this.#buildInventoryNode(await this.#loadInventory(id));
+      const inventoryNode = this.#buildInventoryNode(
+        await this.#loadInventory(id)
+      );
       this.listTarget.prepend(inventoryNode);
+      this.listTarget.children[0].classList.add("highlight");
     });
     let totalSupply = await this.#directAds.totalSupply();
 
     for (let id = totalSupply; id >= 1; id--) {
-      const inventoryNode = this.#buildInventoryNode(await this.#loadInventory(id));
+      const inventoryNode = this.#buildInventoryNode(
+        await this.#loadInventory(id)
+      );
       this.listTarget.append(inventoryNode);
     }
   }
