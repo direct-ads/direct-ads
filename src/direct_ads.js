@@ -8,7 +8,7 @@ export default async function() {
   if (directAds == null) {
     const provider = await getProvider();
     directAds = new ethers.Contract(
-      "0x8071E429C7684fCe0250287F1578397142503241",
+      "0x8e89837992D8a8bfBB2545059A64Eb557951c657",
       DirectAds.abi,
       provider.getSigner()
     );

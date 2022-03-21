@@ -6,10 +6,10 @@ async function main() {
   console.log(`https://mumbai.polygonscan.com/address/${directAds.address}`);
 
   const tokens = [
-    "https://ipfs.infura.io/ipfs/QmRmkCerpVgwA6RTjA7LhAGBN8XSVWxHsr3b5vZ9AHXWTi",
-    "https://ipfs.infura.io/ipfs/QmRdCvssFGpLNbWCY7PJhP3d2rLXFjS9dzEb2sxSyzWhMk",
     "https://ipfs.infura.io/ipfs/QmcGS1MkjTT1r5pfV1TWaC9Lg1qvWino6yz3orobou5mXx",
     "https://ipfs.infura.io/ipfs/QmSmtgsyMv57jzNxZobb2RhMwQgHMcFPpEVymd7sUrrW73",
+    "https://ipfs.infura.io/ipfs/QmRmkCerpVgwA6RTjA7LhAGBN8XSVWxHsr3b5vZ9AHXWTi",
+    "https://ipfs.infura.io/ipfs/QmRdCvssFGpLNbWCY7PJhP3d2rLXFjS9dzEb2sxSyzWhMk",
   ];
 
   // Add some test data
@@ -29,7 +29,7 @@ async function main() {
   }
   try {
     await transferLinkTokens("0.05", directAds.address);
-    await directAds.startDomainVerification("example.com", tokenURI);
+    await directAds.startDomainVerification("example.com", tokens[0]);
   } catch (e) {
     console.error(e);
   }

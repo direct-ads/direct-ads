@@ -4,7 +4,7 @@ import Onboard from "bnc-onboard";
 export default async function () {
   const onboard = Onboard({
     dappId: "e1a1ff68-4c57-4d8a-a283-1ce8a9bd9fbf",
-    networkId: 31337,
+    networkId: 80001,
     subscriptions: {
       wallet: (wallet) => {
         window.localStorage.setItem("wallet", wallet.name);
